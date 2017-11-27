@@ -13,7 +13,7 @@ var clock = new THREE.Clock();
 
 var keyboard = new KeyboardState();
 
-var base, stand1, stand2, stand3, stand4, controllerBox, baseController, handle, basetop;
+var base, stand1, stand2, stand3, stand4, controllerBox, baseController, handle, basetop, signBack, coinSlot;
 var handleBall;
 var frame1, frame2, frame3, frame4;
 var armX, armY, box;
@@ -80,6 +80,14 @@ function fillScene() {
 	buttonLight2.position.y = 404;
 	buttonLight2.position.z = 175;
 	scene.add(buttonLight2);
+
+	var slotLight = new THREE.PointLight(0xfd00f0, 2, 100);
+	slotLight.position.x = 0;
+	slotLight.position.y = 300;
+	slotLight.position.z = 210;
+	slotLight.target = coinSlot;
+
+	scene.add(slotLight);
 
 //A simple grid floor, the variables hint at the plane that this lies within
 // Later on we might install new flooring.
@@ -209,6 +217,14 @@ function drawClawMachine() {
 	boxTop.position.z = 0;
 	scene.add(boxTop);
 
+	//Adding a sign
+	signBack = new THREE.Mesh(new THREE.BoxGeometry(200, 100, 25), boxTopMaterial);
+	signBack.position.x = 0;
+	signBack.position.y = 870
+	signBack.position.z = 140;
+	scene.add(signBack);
+
+
 	//var controllerBoxMaterial = new THREE.MeshBasicMaterial({color: 0x00091e});
 	controllerBox = new THREE.Mesh(new THREE.BoxGeometry(100, 200, 50), postTexture);
 	controllerBox.position.x = 0;
@@ -249,6 +265,24 @@ function drawClawMachine() {
 	button2.position.y = 400;
 	button2.position.z = 175;
 	scene.add(button2);
+
+	var coinSlotMaterial = new THREE.MeshLambertMaterial({color: 0x00245e});
+	coinSlot = new THREE.Mesh(new THREE.BoxGeometry(10, 20, 2), coinSlotMaterial);
+	coinSlot.position.x = 0;
+	coinSlot.position.y = 300;
+	coinSlot.position.z = 200;
+
+	var coinSlotMaterial1 = new THREE.MeshLambertMaterial({color: 0x000000});
+	var coinSlotCut = new THREE.Mesh(new THREE.BoxGeometry(2, 15, 1), coinSlotMaterial1);
+	coinSlotCut.position.x = 0;
+	coinSlotCut.position.y = 300;
+	coinSlotCut.position.z = 201;
+
+	scene.add(coinSlot);
+	scene.add(coinSlotCut);
+
+
+
 
 	//claw definition ----------------------------------------------------------
 
@@ -487,7 +521,7 @@ function drawClawMachine() {
 	wall4.position.x = 0;
 	wall4.position.y = 600;
 	wall4.position.z = -150;
-	shape33 = new Ammo.btBoxShape(new Ammo.btVector3(20 * .5, 20 * .5, 20 * .5));
+	shape33 = new Ammo.btBoxShape(new Ammo.btVector3(250 * .5, 400 * .5, 5 * .5));
 	shape33.setMargin( margin );
 
 	var mass33 = 0;
@@ -637,6 +671,25 @@ function drawClawMachine() {
 	dynamicObjects.push( boxThing );
 	physicsWorld.addRigidBody( body1 );
 
+	//Adding more objects
+	item = new THREE.Mesh(new THREE.BoxGeometry(45, 30, 10), createObjectMaterial());
+	item.position.y = 500;
+	addPhysicsBox(item, 45, 30, 10 );
+
+	item1 = new THREE.Mesh(new THREE.BoxGeometry(60, 30, 50), createObjectMaterial());
+	item1.position.y = 500;
+	addPhysicsBox(item1, 60, 30, 50 );
+
+	item2 = new THREE.Mesh(new THREE.BoxGeometry(30, 30, 40), createObjectMaterial());
+	item2.position.y = 500;
+	item2.position.x = 50;
+	addPhysicsBox(item2, 30, 30, 40 );
+
+	item3 = new THREE.Mesh(new THREE.BoxGeometry(45, 30, 10), createObjectMaterial());
+	item3.position.y = 500;
+	item3.position.z = 100;
+	addPhysicsBox(item3, 45, 30, 10 );
+
 
 
 
@@ -647,6 +700,28 @@ function createObjectMaterial() {
 	var c = Math.floor( Math.random() * ( 1 << 24 ) );
 	return new THREE.MeshPhongMaterial( { color: c } );
 } //end createObjectMaterial
+
+function addPhysicsBox(boxThing1, x , y, z) {
+	shape11 = new Ammo.btBoxShape(new Ammo.btVector3(x * .5, y * .5, z * .5));
+	shape11.setMargin( margin );
+	var mass11 = 100 * 5;
+	var localInertia11 = new Ammo.btVector3( 0, 0, 0 );
+	shape11.calculateLocalInertia( mass11, localInertia11 );
+	var transform11 = new Ammo.btTransform();
+	transform11.setIdentity();
+	var pos11 = boxThing1.position;
+	transform11.setOrigin( new Ammo.btVector3( pos11.x, pos11.y, pos11.z ) );
+	var motionState11 = new Ammo.btDefaultMotionState( transform11 );
+	var rbInfo11 = new Ammo.btRigidBodyConstructionInfo( mass11, motionState11, shape11, localInertia11 );
+	var body11 = new Ammo.btRigidBody( rbInfo11 );
+
+	boxThing1.userData.physicsBody = body11;
+	boxThing1.receiveShadow = true;
+	boxThing1.castShadow = true;
+	scene.add( boxThing1 );
+	dynamicObjects.push( boxThing1 );
+	physicsWorld.addRigidBody( body11 );
+}
 
 
 

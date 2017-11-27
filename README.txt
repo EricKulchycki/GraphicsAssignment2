@@ -30,7 +30,7 @@ iii. [2 Marks] Add at least 2 spotlights inside the claw machine that illuminate
 (Fully Completed)
 
 iv. [1 Mark] Add an assortment of objects inside the claw machine. What you choose is up to you.
-(Fully Completed, Partially Completed, Not Completed)
+(Fully Completed)
 
 v. [2 Marks] Add textures to the outside of your box. This could include a wood grain, or texture of your choice
 (Fully Completed)
@@ -39,22 +39,26 @@ vi. [1 Mark] Add a sign with the name of your game (a marquee) to the machine. T
 (Fully Completed, Partially Completed, Not Completed)
 
 vii. [1 Mark] Give the floor a glossy appearance, such that a slightly blurred image of the machine shows up faintly on the floor
-(Fully Completed, Partially Completed, Not Completed)
+(Not Completed)
 
 viii. [1 Mark] Give your machine the appearance of having glass windows between the player and the prizes
 (Fully Completed)
 
 ix. [1 Mark] Place glowing buttons, and a glowing coin slot on the machine
-(Fully Completed, Partially Completed, Not Completed)
+(Fully Completed)
 
 x. [2 Marks] The objects in the box should stack on top of one another. That is, there is physical interaction between them. 
-(Fully Completed, Partially Completed, Not Completed)
+(Fully Completed)
 
 xi. [Bonus: 2 Marks] Your claw can pick up objects, carry them to the prize bin, and drop the prize into the prize bin
-(Fully Completed, Partially Completed, Not Completed)
+(Not Completed)
 
 /**********************************************************************
  * List any additional comments that you feel may be relevant.
  **********************************************************************/
 
 You have to open it in Microsoft Edge because Chrome or Firefox does not load local files (textures).
+
+Actually the newest version of Firefox works but in case you don't have that just use Microsoft Edge.
+
+Thank you!
